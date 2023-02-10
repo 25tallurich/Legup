@@ -66,7 +66,7 @@ public class EmptyCornersBasicRule extends BasicRule {
         TooFewBulbsContradictionRule tooFew = new TooFewBulbsContradictionRule();
         LightUpBoard bulbCaseBoard = finalBoard.copy();
         LightUpCell bulbCaseCell = (LightUpCell) bulbCaseBoard.getPuzzleElement(puzzleElement);
-        bulbCaseCell.setData(LightUpCellType.BULB.value);
+        bulbCaseCell.setData(LightUpCellType.BULB);
         bulbCaseBoard.fillWithLight();
 
         boolean createsContra = false;
@@ -94,15 +94,15 @@ public class EmptyCornersBasicRule extends BasicRule {
         TreeTransition transition = new TreeTransition(node, lightUpBoardCopy);
         for (PuzzleElement element : lightUpBoardCopy.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) element;
-            int temp = cell.getData();
-            cell.setData(LightUpCellType.EMPTY.value);
+            int temp = cell.getType().value;
+            cell.setData(LightUpCellType.EMPTY);
             if (checkRuleRawAt(transition, cell) == null) {
                 LightUpCell modCell = (LightUpCell) lightUpBoard.getPuzzleElement(cell);
-                modCell.setData(LightUpCellType.EMPTY.value);
+                modCell.setData(LightUpCellType.EMPTY);
                 lightUpBoard.addModifiedData(modCell);
             }
             else {
-                cell.setData(temp);
+                cell.setData(LightUpCellType.values()[temp]);
             }
         }
         if (lightUpBoard.getModifiedData().isEmpty()) {
