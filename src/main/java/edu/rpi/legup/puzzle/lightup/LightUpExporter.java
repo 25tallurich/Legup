@@ -21,7 +21,7 @@ public class LightUpExporter extends PuzzleExporter {
         org.w3c.dom.Element cellsElement = newDocument.createElement("cells");
         for (PuzzleElement puzzleElement : board.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) puzzleElement;
-            if (cell.getData() != -2) {
+            if (cell.getData() != LightUpCellType.UNKNOWN) {
                 org.w3c.dom.Element cellElement = puzzle.getFactory().exportCell(newDocument, puzzleElement);
                 cellsElement.appendChild(cellElement);
             }

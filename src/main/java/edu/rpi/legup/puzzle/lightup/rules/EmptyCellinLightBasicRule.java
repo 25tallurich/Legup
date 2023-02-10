@@ -50,7 +50,7 @@ public class EmptyCellinLightBasicRule extends BasicRule {
         for (PuzzleElement element : lightUpBoard.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) element;
             if (cell.getType() == LightUpCellType.UNKNOWN && cell.isLite()) {
-                cell.setData(LightUpCellType.EMPTY.value);
+                cell.setData(LightUpCellType.EMPTY);
                 lightUpBoard.addModifiedData(cell);
             }
         }
