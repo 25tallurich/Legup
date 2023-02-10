@@ -14,30 +14,30 @@ public class LightUpCellController extends ElementController {
                 this.boardView.getSelectionPopupMenu().show(boardView, this.boardView.getCanvas().getX() + e.getX(), this.boardView.getCanvas().getY() + e.getY());
             }
             else {
-                if (cell.getData() == -2) {
-                    data.setData(-4);
+                if (cell.getData() == LightUpCellType.UNKNOWN) {
+                    data.setData(LightUpCellType.BULB);
                 }
                 else {
-                    if (cell.getData() == -4) {
-                        data.setData(-3);
+                    if (cell.getData() == LightUpCellType.BULB) {
+                        data.setData(LightUpCellType.EMPTY);
                     }
                     else {
-                        data.setData(-2);
+                        data.setData(LightUpCellType.UNKNOWN);
                     }
                 }
             }
         }
         else {
             if (e.getButton() == MouseEvent.BUTTON3) {
-                if (cell.getData() == -4) {
-                    data.setData(-2);
+                if (cell.getData() == LightUpCellType.BULB) {
+                    data.setData(LightUpCellType.UNKNOWN);
                 }
                 else {
-                    if (cell.getData() == -2) {
-                        data.setData(-3);
+                    if (cell.getData() == LightUpCellType.UNKNOWN) {
+                        data.setData(LightUpCellType.EMPTY);
                     }
                     else {
-                        data.setData(-4);
+                        data.setData(LightUpCellType.BULB);
                     }
                 }
             }

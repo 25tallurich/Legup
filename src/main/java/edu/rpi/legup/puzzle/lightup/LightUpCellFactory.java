@@ -20,7 +20,7 @@ public class LightUpCellFactory extends ElementFactory {
      * @throws InvalidFileFormatException
      */
     @Override
-    public LightUpCell importCell(Node node, Board board) throws InvalidFileFormatException {
+    public PuzzleElement<LightUpCellType> importCell(Node node, Board board) throws InvalidFileFormatException {
         try {
             if (!node.getNodeName().equalsIgnoreCase("cell")) {
                 throw new InvalidFileFormatException("lightup Factory: unknown puzzleElement puzzleElement");
@@ -31,9 +31,9 @@ public class LightUpCellFactory extends ElementFactory {
             int height = lightUpBoard.getHeight();
 
             NamedNodeMap attributeList = node.getAttributes();
-            int value = Integer.valueOf(attributeList.getNamedItem("value").getNodeValue());
-            int x = Integer.valueOf(attributeList.getNamedItem("x").getNodeValue());
-            int y = Integer.valueOf(attributeList.getNamedItem("y").getNodeValue());
+            int value = Integer.parseInt(attributeList.getNamedItem("value").getNodeValue());
+            int x = Integer.parseInt(attributeList.getNamedItem("x").getNodeValue());
+            int y = Integer.parseInt(attributeList.getNamedItem("y").getNodeValue());
             if (x >= width || y >= height) {
                 throw new InvalidFileFormatException("lightup Factory: cell location out of bounds");
             }
@@ -41,7 +41,7 @@ public class LightUpCellFactory extends ElementFactory {
                 throw new InvalidFileFormatException("lightup Factory: cell unknown value");
             }
 
-            LightUpCell cell = new LightUpCell(value, new Point(x, y));
+            LightUpCell cell = new LightUpCell(LightUpCellType.getType(value), new Point(x, y));
             cell.setIndex(y * height + x);
             return cell;
         }

@@ -8,4 +8,6 @@ public enum LightUpCellType {
     LightUpCellType(int value) {
         this.value = value;
     }
+
+
 }
