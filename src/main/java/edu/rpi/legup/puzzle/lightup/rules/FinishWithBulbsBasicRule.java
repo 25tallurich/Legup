@@ -92,7 +92,7 @@ public class FinishWithBulbsBasicRule extends BasicRule {
         for (PuzzleElement element : lightUpBoard.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) element;
             if (cell.getType() == LightUpCellType.UNKNOWN && isForced(initialBoard, cell)) {
-                cell.setData(LightUpCellType.BULB.value);
+                cell.setData(LightUpCellType.BULB);
                 lightUpBoard.addModifiedData(cell);
             }
         }
