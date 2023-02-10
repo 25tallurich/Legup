@@ -36,7 +36,7 @@ public class TooFewBulbsContradictionRule extends ContradictionRule {
         int bulbs = lightUpBoard.getNumAdj(cell, LightUpCellType.BULB);
         int placeable = lightUpBoard.getNumPlacble(cell);
 
-        if (bulbs + placeable < cell.getData()) {
+        if (bulbs + placeable < cell.getType().value) {
             return null;
         }
         return super.getNoContradictionMessage();

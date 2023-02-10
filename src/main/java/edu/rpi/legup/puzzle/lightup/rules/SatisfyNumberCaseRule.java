@@ -52,7 +52,7 @@ public class SatisfyNumberCaseRule extends CaseRule {
 
         List<LightUpCell> openSpots = new ArrayList<>();
 
-        int numNeeded = cell.getData();
+        int numNeeded = cell.getType().value;
 
         LightUpCell checkCell = lightUpBoard.getCell(loc.x + 1, loc.y);
         if (checkCell != null) {
@@ -120,7 +120,7 @@ public class SatisfyNumberCaseRule extends CaseRule {
             LightUpCell newCell = c.copy();
             Point loc = c.getLocation();
 
-            newCell.setData(-4);
+            newCell.setData(LightUpCellType.BULB);
             newCase.setCell(loc.x, loc.y, newCell);
             newCase.addModifiedData(newCell);
 
@@ -146,13 +146,13 @@ public class SatisfyNumberCaseRule extends CaseRule {
                     LightUpCell modCell = (LightUpCell) mod.copy();
                     Point modLoc = modCell.getLocation();
 
-                    modCell.setData(-4);
+                    modCell.setData(LightUpCellType.BULB);
 
                     newCase.setCell(modLoc.x, modLoc.y, modCell);
                     newCase.addModifiedData(modCell);
                 }
 
-                newCell.setData(-4);
+                newCell.setData(LightUpCellType.BULB);
 
                 newCase.setCell(loc.x, loc.y, newCell);
                 newCase.addModifiedData(newCell);

@@ -54,7 +54,7 @@ public class TooManyBulbsContradictionRule extends ContradictionRule {
             bulbs++;
         }
 
-        if (bulbs > cell.getData()) {
+        if (bulbs > cell.getType().value) {
             return null;
         }
         return super.getNoContradictionMessage();

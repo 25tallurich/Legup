@@ -40,7 +40,7 @@ public class MustLightBasicRule extends BasicRule {
 
         finalBoard.fillWithLight();
         boolean isForced = isForcedBulb(parentBoard, parentCell.getLocation());
-        finalCell.setData(LightUpCellType.BULB.value);
+        finalCell.setData(LightUpCellType.BULB);
         finalBoard.fillWithLight();
 
         if (isForced) {
@@ -55,7 +55,7 @@ public class MustLightBasicRule extends BasicRule {
         CannotLightACellContradictionRule cannotLite = new CannotLightACellContradictionRule();
         LightUpBoard modifiedBoard = board.copy();
         LightUpCell modifiedCell = modifiedBoard.getCell(loc.x, loc.y);
-        modifiedCell.setData(LightUpCellType.EMPTY.value);
+        modifiedCell.setData(LightUpCellType.EMPTY);
         //Check if this cell itself (the one with the bulb) has no other lighting option
         if ((modifiedCell.getType() == LightUpCellType.EMPTY || modifiedCell.getType() == LightUpCellType.UNKNOWN) &&
             !modifiedCell.isLite() && cannotLite.checkContradictionAt(modifiedBoard, modifiedCell) == null) {
@@ -130,13 +130,13 @@ public class MustLightBasicRule extends BasicRule {
         for (PuzzleElement element : tempBoard.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) element;
             if (cell.getType() == LightUpCellType.UNKNOWN && !cell.isLite()) {
-                cell.setData(LightUpCellType.EMPTY.value);
+                cell.setData(LightUpCellType.EMPTY);
                 if (isForcedBulb(initialBoard, cell.getLocation())) {
                     LightUpCell modCell = (LightUpCell) lightUpBoard.getPuzzleElement(cell);
-                    modCell.setData(LightUpCellType.BULB.value);
+                    modCell.setData(LightUpCellType.BULB);
                     lightUpBoard.addModifiedData(modCell);
                 }
-                cell.setData(LightUpCellType.UNKNOWN.value);
+                cell.setData(LightUpCellType.UNKNOWN);
             }
         }
         if (lightUpBoard.getModifiedData().isEmpty()) {

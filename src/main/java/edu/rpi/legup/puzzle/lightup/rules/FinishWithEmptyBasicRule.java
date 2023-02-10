@@ -69,7 +69,7 @@ public class FinishWithEmptyBasicRule extends BasicRule {
         }
 
         int bulbs = 0;
-        int bulbsNeeded = cell.getData();
+        int bulbsNeeded = cell.getType().value;
         cell = board.getCell(loc.x + 1, loc.y);
         if (cell != null && cell.getType() == LightUpCellType.BULB) {
             bulbs++;
@@ -102,7 +102,7 @@ public class FinishWithEmptyBasicRule extends BasicRule {
         for (PuzzleElement element : lightUpBoard.getPuzzleElements()) {
             LightUpCell cell = (LightUpCell) element;
             if (cell.getType() == LightUpCellType.UNKNOWN && isForced(initialBoard, cell.getLocation())) {
-                cell.setData(LightUpCellType.EMPTY.value);
+                cell.setData(LightUpCellType.EMPTY);
                 lightUpBoard.addModifiedData(cell);
             }
         }
