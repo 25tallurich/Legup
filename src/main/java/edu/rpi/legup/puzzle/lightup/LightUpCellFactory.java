@@ -41,7 +41,7 @@ public class LightUpCellFactory extends ElementFactory {
                 throw new InvalidFileFormatException("lightup Factory: cell unknown value");
             }
 
-            LightUpCell cell = new LightUpCell(LightUpCellType.values()[value], new Point(x, y));
+            LightUpCell cell = new LightUpCell(LightUpCellType.IntToenum(value), new Point(x, y));
             cell.setIndex(y * height + x);
             return cell;
         }

@@ -9,5 +9,19 @@ public enum LightUpCellType {
         this.value = value;
     }
 
-
+    public static LightUpCellType IntToenum(int val){
+        switch(val){
+            case -3:
+                return EMPTY;
+            case 0:
+                return NUMBER;
+            case -2:
+                return UNKNOWN;
+            case -4:
+                return BULB;
+            case -1:
+                return BLACK;
+        }
+        return null;
+    }
 }

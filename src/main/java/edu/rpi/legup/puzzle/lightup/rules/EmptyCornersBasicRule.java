@@ -102,7 +102,7 @@ public class EmptyCornersBasicRule extends BasicRule {
                 lightUpBoard.addModifiedData(modCell);
             }
             else {
-                cell.setData(LightUpCellType.values()[temp]);
+                cell.setData(LightUpCellType.IntToenum(temp));
             }
         }
         if (lightUpBoard.getModifiedData().isEmpty()) {
