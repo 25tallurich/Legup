@@ -94,13 +94,24 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
     protected JMenuItem testAI = new JMenuItem("Test AI!");
     protected JMenuItem hintAI = new JMenuItem("Hint");
 
+    /*
+    This code is defining a constructor method for a class called
+    ProofEditorPanel. The class has three instance variables fileDialog,
+    frame, and legupUI, which are being initialized with values passed
+    as arguments to the constructor.
+     */
     public ProofEditorPanel(FileDialog fileDialog, JFrame frame, LegupUI legupUI) {
         this.fileDialog = fileDialog;
         this.frame = frame;
         this.legupUI = legupUI;
         setLayout(new BorderLayout());
     }
-
+/*
+    The makeVisible() method is an override of a
+    superclass method that is being called to update
+    the visibility of the panel. The removeAll() method
+    is called to remove all the components from the panel.
+ */
     @Override
     public void makeVisible() {
         this.removeAll();
@@ -109,7 +120,31 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         setupContent();
         frame.setJMenuBar(getMenuBar());
     }
+/*
+This code is a method in a Java program that creates and
+returns a menu bar for a graphical user interface. The menu
+bar has several menus and menu items, which perform various
+functions in the program.
 
+The method first checks if the menu bar has already been
+created and, if so, returns it. If the menu bar has not been
+created, it creates a new JMenuBar object.
+
+The method then creates several JMenu objects and JMenuItem
+objects, adds them to the appropriate JMenu objects, and sets up
+event listeners for some of them. The menus and menu items are
+organized into four main groups: File, Edit, View, and Proof. The
+File menu contains items for opening a new puzzle, resetting the
+puzzle, saving a proof, and exiting the program. The Edit menu contains
+items for undoing and redoing actions, and fitting the board and tree
+to the screen. The View menu is currently empty, and the Proof menu
+contains several items for manipulating the proof tree, as well as
+some options for the user's preferences.
+
+The method also sets up keyboard shortcuts for some of the menu items
+based on the user's operating system (mac or other). Finally, the method
+adds all of the menus and menu items to the JMenuBar object and returns it.
+ */
     public JMenuBar getMenuBar() {
         if (mBar != null) return mBar;
         mBar = new JMenuBar();
@@ -215,12 +250,6 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             newPuzzle.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
         }
 
-//        file.add(genPuzzle);
-////        genPuzzle.addActionListener((ActionEvent) ->
-////        {
-////            pickGameDialog = new PickGameDialog(this, true);
-////            pickGameDialog.setVisible(true);
-////        });
         file.add(resetPuzzle);
         resetPuzzle.addActionListener(a -> {
             Puzzle puzzle = GameBoardFacade.getInstance().getPuzzleModule();
@@ -384,14 +413,25 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
 
         return new Object[]{fileName, puzzleFile};
     }
-
+/*
+loadPuzzle(): This method calls the promptPuzzle() method to get a
+filename and file object for the puzzle, and then calls the loadPuzzle()
+method with these parameters.
+ */
     public void loadPuzzle() {
         Object[] items = promptPuzzle();
         String fileName = (String) items[0];
         File puzzleFile = (File) items[1];
         loadPuzzle(fileName, puzzleFile);
     }
-
+/*
+loadPuzzle(String fileName, File puzzleFile): This method loads the
+puzzle from the file specified by puzzleFile, using the GameBoardFacade
+singleton instance to load the puzzle and set the puzzle name in the
+application frame title. If the file format is invalid or the file
+cannot be read, the method displays an error message and recursively
+calls loadPuzzle() again.
+ */
     public void loadPuzzle(String fileName, File puzzleFile) {
         if (puzzleFile != null && puzzleFile.exists()) {
             try {
@@ -415,8 +455,11 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         }
     }
 
-    /**
-     * direct Saves the current prdoof in current file
+    /*
+    direct_save(): This method saves the current proof to the current file,
+    using the PuzzleExporter object obtained from the GameBoardFacade
+    singleton instance. If the exporter is null, an ExportFileException
+    is thrown.
      */
     private void direct_save(){
         Puzzle puzzle = GameBoardFacade.getInstance().getPuzzleModule();
@@ -437,8 +480,11 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             }
         }
     }
-    /**
-     * Create a new file and save proof to it
+    /*
+    saveProofAs(): This method prompts the user for a filename to save
+    the proof to, and then saves the proof using the PuzzleExporter
+    object obtained from the GameBoardFacade singleton instance. If the
+    exporter is null, an ExportFileException is thrown.
      */
     private void saveProofAs() {
         Puzzle puzzle = GameBoardFacade.getInstance().getPuzzleModule();
@@ -477,7 +523,10 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         }
     }
 
-    // Hyperlink for help button; links to wiki page for tutorials
+    /*
+    helpTutorial(): This method opens a web browser to display a
+    tutorial page for the puzzle game.
+     */
     private void helpTutorial() {
 
         Runtime rt = Runtime.getRuntime();
@@ -490,7 +539,10 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             e.printStackTrace();
         }
     }
-    //add the new function need to implement
+    /*
+    add_drop(): This method is incomplete and appears to be intended for
+    adding a new feature to the puzzle game involving mouse events and a button to select a game rule.
+     */
     public void add_drop(){
         // add the mouse event then we can use the new listener to implement and
         // we should create a need jbuttom for it to ship the rule we select.
@@ -508,7 +560,10 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
 
 
 
-
+/*
+saveProofChange(): This method saves the current proof to the current
+file and displays a confirmation message using JOptionPane.
+ */
     // Quick save proof to the current file with a pop window to show "successfully saved"
     private void saveProofChange(){
         Puzzle puzzle = GameBoardFacade.getInstance().getPuzzleModule();
@@ -532,17 +587,25 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         }
 
     }
-
-
-    //ask to edu.rpi.legup.save current proof
+/*
+noquit(String instr): This method displays a confirmation dialog with the message
+specified by instr and returns true if the user selects "No" or "Cancel" and false if the user selects "Yes".
+ */
     public boolean noquit(String instr) {
         int n = JOptionPane.showConfirmDialog(null, instr, "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
         return n != JOptionPane.YES_OPTION;
     }
 
-    /**
-     * Sets the main content for the edu.rpi.legup.user interface
-     */
+  /*
+  The setupContent() method creates three JPanel objects:
+  treeBox, ruleBox, and boardPanel, which are used to organize
+  the layout of the graphical user interface (GUI).
+
+The method also initializes several components within these
+panels, such as a RuleController, a RuleFrame, a TreePanel,
+and a DynamicView. These components are added to the panels and
+set various layout properties to create a desired UI layout.
+   */
     protected void setupContent() {
 //        JPanel consoleBox = new JPanel(new BorderLayout());
         JPanel treeBox = new JPanel(new BorderLayout());
@@ -573,19 +636,15 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         ruleBox.add(boardPanel);
         treeBox.add(ruleBox);
         this.add(treeBox);
-//        consoleBox.add(treeBox);
-//
-//        getContentPane().add(consoleBox);
-
-//        JPopupPanel popupPanel = new JPopupPanel();
-//        setGlassPane(popupPanel);
-//        popupPanel.setVisible(true);
 
         mainPanel.setDividerLocation(mainPanel.getMaximumDividerLocation() + 100);
-//        frame.pack();
         revalidate();
     }
-
+/*
+The setupToolBar() method creates a JToolBar object and adds several
+JButton objects to it. The method sets properties of the buttons, such
+as their icons and text, and adds listeners for certain button clicks.
+ */
     private void setupToolBar() {
         setToolBarButtons(new JButton[ToolbarName.values().length]);
         for (int i = 0; i < ToolbarName.values().length; i++) {
@@ -621,10 +680,6 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             getToolBarButtons()[i].setHorizontalTextPosition(SwingConstants.CENTER);
         }
 
-//        toolBarButtons[ToolbarName.OPEN_PUZZLE.ordinal()].addActionListener((ActionEvent e) -> promptPuzzle());
-//        toolBarButtons[ToolbarName.SAVE.ordinal()].addActionListener((ActionEvent e) -> saveProof());
-//        toolBarButtons[ToolbarName.UNDO.ordinal()].addActionListener((ActionEvent e) -> GameBoardFacade.getInstance().getHistory().undo());
-//        toolBarButtons[ToolbarName.REDO.ordinal()].addActionListener((ActionEvent e) -> GameBoardFacade.getInstance().getHistory().redo());
         toolBarButtons[ToolbarName.HINT.ordinal()].addActionListener((ActionEvent e) -> {
         });
         toolBarButtons[ToolbarName.CHECK.ordinal()].addActionListener((ActionEvent e) -> checkProof());
@@ -635,9 +690,6 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
 
         toolBarButtons[ToolbarName.CHECK_ALL.ordinal()].addActionListener((ActionEvent e) -> checkProofAll());
 
-//        toolBarButtons[ToolbarName.SAVE.ordinal()].setEnabled(false);
-//        toolBarButtons[ToolbarName.UNDO.ordinal()].setEnabled(false);
-//        toolBarButtons[ToolbarName.REDO.ordinal()].setEnabled(false);
         toolBarButtons[ToolbarName.HINT.ordinal()].setEnabled(false);
         toolBarButtons[ToolbarName.CHECK.ordinal()].setEnabled(false);
         toolBarButtons[ToolbarName.SUBMIT.ordinal()].setEnabled(false);
@@ -693,12 +745,25 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             JOptionPane.showMessageDialog(null, message, "Invalid proof.", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+/*
+The repaintAll() method is private and it takes no arguments.
+It calls the repaint() method on two objects: boardView and treePanel.
+Presumably, these are GUI components that need to be refreshed.
+ */
     private void repaintAll() {
         boardView.repaint();
         treePanel.repaint();
     }
-
+/*
+The setPuzzleView(Puzzle puzzle) method takes a Puzzle object as an
+argument. It sets the boardView field to the board view of the puzzle,
+creates a DynamicView object, and sets it as the right component of
+topHalfPanel. It also sets a border for the dynamicBoardView using the
+boardType. Additionally, it sets the TreeView of the treePanel to the
+tree of the puzzle, adds a tree listener and a board listener to the
+puzzle, and sets some rules for a ruleFrame. Finally, it calls reloadGui()
+method and repaintTree() method.
+ */
     public void setPuzzleView(Puzzle puzzle) {
         this.boardView = puzzle.getBoardView();
 
@@ -728,7 +793,9 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
 
         reloadGui();
     }
-
+/*
+The reloadGui() method calls the repaintTree() method, which in turn calls the repaintTreeView() method on the treePanel.
+ */
     public void reloadGui() {
         repaintTree();
     }
@@ -737,8 +804,13 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         treePanel.repaintTreeView(GameBoardFacade.getInstance().getTree());
     }
 
-    /**
-     * Checks the proof for all files
+    /*
+    The checkProofAll() method checks the proof for all files in a directory.
+    It creates a JFileChooser object and shows a dialog to select a directory.
+    It then creates a CSV file to store the results of the grading, and it
+    recursively traverses the directory to process each file. For each
+    file, it loads a puzzle, runs a checker, and writes the results to
+    the CSV file.
      */
     private void checkProofAll() {
         GameBoardFacade facade = GameBoardFacade.getInstance();
@@ -783,11 +855,22 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         }
         JOptionPane.showMessageDialog(null, "Batch grading complete.");
     }
-
+/*
+The basicCheckProof(int[][] origCells) method takes a
+two-dimensional array of integers as an argument and returns false.
+The purpose of this method is not clear from the code snippet.
+ */
     private boolean basicCheckProof(int[][] origCells) {
         return false;
     }
-
+/*
+The traverseDir(File folder, BufferedWriter writer, String path) method
+takes a File object, a BufferedWriter object, and a String object as
+arguments. It recursively traverses a directory, and for each file, it
+writes some data to the CSV file created by the checkProofAll() method.
+It also loads a puzzle and runs a checker on each file. The path argument
+is a string that represents the path of the file in the directory hierarchy.
+ */
     private void traverseDir(File folder, BufferedWriter writer, String path) throws IOException {
         // Recursively traverse directory
         GameBoardFacade facade = GameBoardFacade.getInstance();
@@ -844,7 +927,11 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             }
         }
     }
-
+/*
+The first three methods, getBoardView(), getDynamicBoardView(), and
+getTreePanel(), return instances of BoardView, DynamicView, and
+TreePanel, respectively.
+ */
     public BoardView getBoardView() {
         return boardView;
     }
@@ -875,9 +962,9 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
         frame.setTitle(puzzleName + " - " + puzzleFile.getName() + " *");
     }
 
-    /**
-     * Called when the history is cleared
-     */
+   /*
+   The method onClearHistory() is called when the history is cleared. It disables both the undo and redo buttons.
+    */
     @Override
     public void onClearHistory() {
         undo.setEnabled(false);
@@ -955,19 +1042,27 @@ public class ProofEditorPanel extends LegupPanel implements IHistoryListener {
             Submission submit = new Submission(board);
         }
     }
-
+/*
+The directions() method displays a message dialog with some directions for the game.
+ */
     private void directions() {
         JOptionPane.showMessageDialog(null, "For every move you make, you must provide a rule for it (located in the Rules panel).\n" + "While working on the edu.rpi.legup.puzzle, you may click on the \"Check\" button to test your proof for correctness.", "Directions", JOptionPane.PLAIN_MESSAGE);
     }
-
+/*
+The errorEncountered(String error) method displays an error message dialog with the given error message.
+ */
     public void errorEncountered(String error) {
         JOptionPane.showMessageDialog(null, error);
     }
-
+/*
+The showStatus(String status, boolean error, int timer) method is not implemented.
+ */
     public void showStatus(String status, boolean error, int timer) {
         // TODO: implement
     }
-
+/*
+The fitTreeViewToScreen() method fits the game's tree view to the screen.
+ */
     protected void fitTreeViewToScreen() {
         this.treePanel.getTreeView().zoomFit();
     }
