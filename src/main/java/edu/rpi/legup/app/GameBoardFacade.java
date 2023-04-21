@@ -32,7 +32,33 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+/*
+This is Java code defining a class named GameBoardFacade.
+The class provides a façade for the game board functionality
+and serves as an interface between the user interface and the
+game logic.
 
+The class imports several other classes, including IHistoryListener,
+IHistorySubject, PuzzleImporter, Board, Puzzle, Tree, ProofEditorPanel,
+PuzzleEditorPanel, Document, Element, Node, InvalidFileFormatException,
+LegupUI, and History.
+
+The GameBoardFacade class implements the IHistorySubject interface,
+which allows other classes to register as listeners for changes to
+the game board's history. The class contains a singleton instance
+variable and a protected constructor, which prevents instantiation
+from other classes.
+
+The GameBoardFacade class provides several methods for
+initializing the user interface, loading a puzzle, validating
+dimensions, and setting the puzzle editor. The class also contains
+ a method for setting the configuration of the game board, which
+ allows the user to configure the game board's behavior.
+
+Overall, this code represents a fundamental component of a
+Java-based game application.
+
+ */
 public class GameBoardFacade implements IHistorySubject {
     private final static Logger LOGGER = LogManager.getLogger(GameBoardFacade.class.getName());
 
